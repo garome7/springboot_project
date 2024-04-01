@@ -24,6 +24,15 @@ public class ClientController {
 
     @GetMapping
     public List<ClientDto> getAllClients(){
-        return clientService.getAllPost();
+        return clientService.getAllClients();
+    }
+    @GetMapping("/{id}")
+    public ClientDto getClientById(@PathVariable (name = "id") long id){
+        return ResponseEntity.ok(clientService.getClientById(id)).getBody();
+    }
+    @PutMapping("/update/{id}")
+    public ClientDto updateClient(@RequestBody ClientDto clientDto, @PathVariable (name = "id") long id){
+       ClientDto clientResponse = clientService.updateClient(clientDto, id);
+       return new ResponseEntity<>(clientResponse, HttpStatus.OK).getBody();
     }
 }

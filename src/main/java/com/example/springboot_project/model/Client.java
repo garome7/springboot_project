@@ -23,6 +23,7 @@ public class Client {
     @Column(name = "email", nullable = false)
     private String email;
 
+
     public Long getId() {
         return id;
     }

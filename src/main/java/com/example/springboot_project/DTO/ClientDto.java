@@ -6,11 +6,12 @@ public class ClientDto {
     private String lastName;
     private String phoneNum;
     private String email;
-
+    private int clientNum;
     public Long getId() {
         return id;
     }
 
+    public int getClientNum() {return clientNum;}
     public String getName() {
         return name;
     }
@@ -46,4 +47,6 @@ public class ClientDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setClientNum(int clientNum) {this.clientNum = clientNum;}
 }
