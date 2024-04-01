@@ -25,14 +25,10 @@ public class ClientServiceImpl implements ClientService {
     public ClientDto createClient(ClientDto clientDto) {
         //convert DTO to entity
         Client client = mapToEntity(clientDto);
-        System.out.println("CLIENTEEEEEE NUMMMMMMM"+client.getClientNum());
-        System.out.println("CLIENTEEEEEE NUMMMMMMM DTO"+clientDto.getClientNum());
         Client newClient = clientRepository.save(client);
-        return  mapToDto(newClient);
-
 
         //Convert entity to DTO and return it
-
+        return  mapToDto(newClient);
     }
 
     @Override
@@ -56,6 +52,13 @@ public class ClientServiceImpl implements ClientService {
         Client updatedClient = clientRepository.save(client);
         return mapToDto(updatedClient);
 
+    }
+
+    @Override
+    public void deleteById(long id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new NoSuchElementException("El cliente con id: "+id+" no existe"));
+        clientRepository.delete(client);
+        System.out.println("Cliente eliminado");
     }
 
     //convert entity into Dto

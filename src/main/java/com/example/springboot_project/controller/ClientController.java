@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-    private ClientService clientService;
+    private final ClientService clientService;
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
@@ -27,6 +27,7 @@ public class ClientController {
         return clientService.getAllClients();
     }
     @GetMapping("/{id}")
+    //map variables from url to method parameters in the controller
     public ClientDto getClientById(@PathVariable (name = "id") long id){
         return ResponseEntity.ok(clientService.getClientById(id)).getBody();
     }
@@ -34,5 +35,10 @@ public class ClientController {
     public ClientDto updateClient(@RequestBody ClientDto clientDto, @PathVariable (name = "id") long id){
        ClientDto clientResponse = clientService.updateClient(clientDto, id);
        return new ResponseEntity<>(clientResponse, HttpStatus.OK).getBody();
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable (name = "id") long id){
+        clientService.deleteById(id);
+        return new ResponseEntity<>("Client deleted successfully", HttpStatus.OK);
     }
 }
